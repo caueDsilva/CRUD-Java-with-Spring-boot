@@ -26,5 +26,8 @@ public class Usuario {
     @Column(name = "CPF", unique = true)
     private String CPF;
 
+    @Column(name = "sexo")
+    private char sexo;
+
 
 }
