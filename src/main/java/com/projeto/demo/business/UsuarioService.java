@@ -34,15 +34,23 @@ public class UsuarioService {
     }
 
     // METODO IMPORTANTE PARA ATUALIZAR
-    public void updateUsuarioPorId(Integer id, Usuario usuario) {
-        Usuario usuarioEntity = repository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuario não encontrado"));
-        Usuario usuarioAtualizado = Usuario.builder()
-                .email(usuario.getEmail() != null ? usuario.getEmail() : usuarioEntity.getEmail())
-                .name(usuario.getName() != null ? usuario.getName(): usuarioEntity.getName())
-                .CPF(usuario.getCPF() != null ? usuario.getCPF() : usuarioEntity.getCPF())
-                .id(usuarioEntity.getId())
-                .build();
-        repository.saveAndFlush(usuarioAtualizado);
+    public void atualizarUsuarioPorId(Integer id, Usuario usuario) {
+        Usuario usuarioEntity = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+
+        if (usuario.getEmail() != null) {
+            usuarioEntity.setEmail(usuario.getEmail());
+        }
+
+        if (usuario.getName() != null) {
+            usuarioEntity.setName(usuario.getName());
+        }
+
+        if (usuario.getCPF() != null) {
+            usuarioEntity.setCPF(usuario.getCPF());
+        }
+
+        repository.save(usuarioEntity);
     }
+
 }
